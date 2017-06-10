@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const config = require('./config');
 const router = require('./router');
 
 // App Setup
@@ -12,7 +13,6 @@ app.use(bodyParser.json({type: '*/*'}));
 router(app);
 
 // Server Setup
-const port = process.env.PORT || 3090;
 const server = http.createServer(app);
-server.listen(port);
-console.log(`Server listening on port ${port}`);
+server.listen(config.port);
+console.log(`Server listening on port ${config.port}`);
