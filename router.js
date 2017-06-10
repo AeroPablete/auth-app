@@ -1,6 +1,5 @@
-module.exports = (app) => {
+const AuthCtrl = require('./controllers/auth');
 
-    app.get('/', (req, res, next) => {
-        return res.status(200).send('Hello World!');
-    });
+module.exports = (app) => {
+    app.post('/sign-up', AuthCtrl.signUp);
 };
