@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const config = require('./config');
 const router = require('./router');
 
@@ -13,6 +14,11 @@ app.use(bodyParser.json({type: '*/*'}));
 router(app);
 
 // Server Setup
-const server = http.createServer(app);
-server.listen(config.port);
-console.log(`Server listening on port ${config.port}`);
+mongoose.connect(config.db_uri)
+    .then(() => {
+        const server = http.createServer(app);
+        server.listen(config.port);
+        console.log(`Server listening on port ${config.port}`);
+    })
+    .catch(() => console.log('Error connecting to the database'));
+
